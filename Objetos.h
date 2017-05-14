@@ -23,9 +23,11 @@ class Objetos {
 	Vec3 posicao;
 	Vec3 velocidade;
 	float angulo;
+	float variacaoAngulo;
+
 public:
 	Objetos();
-	Objetos(int numerodevertices, char *filename, float posicaoInicialX, float posicaoInicialY, float anguloInicial, float taxadevariacaoX, float taxadevariacaoY);
+	Objetos(int numerodevertices, char *filename, float posicaoInicialX, float posicaoInicialY, float anguloInicial, float variacaoAngulo, float taxadevariacaoX, float taxadevariacaoY);
 	void desenhaQuadradoNaTela();
 	void queroQuadrado();
 	void movimentar(unsigned char key, int x, int y);

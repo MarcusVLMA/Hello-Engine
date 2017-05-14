@@ -12,7 +12,7 @@ Objetos::Objetos() {
 	velocidade.y = 0;
 }
 
-Objetos::Objetos(int numerodevertices, char *filename, float posicaoInicialX, float posicaoInicialY, float anguloInicial, float taxadevariacaoX, float taxadevariacaoY) {
+Objetos::Objetos(int numerodevertices, char *filename, float posicaoInicialX, float posicaoInicialY, float anguloInicial, float variacaoangulo, float taxadevariacaoX, float taxadevariacaoY) {
 	numeroDeVertices = numerodevertices;
 
 	idTextura = SOIL_load_OGL_texture(
@@ -31,6 +31,7 @@ Objetos::Objetos(int numerodevertices, char *filename, float posicaoInicialX, fl
 	posicao.x = posicaoInicialX;
 	posicao.y = posicaoInicialY;
 	angulo = anguloInicial;
+	variacaoAngulo = variacaoangulo;
 	velocidade.x = taxadevariacaoX;
 	velocidade.y = taxadevariacaoY;
 }
@@ -145,11 +146,11 @@ void Objetos::movimentar(unsigned char key, int x, int y) {
 	}
 
 	if (key == 'q' || key == 'Q') {
-		angulo = angulo + 15;
+		angulo = angulo + variacaoAngulo;
 	}
 
 	if (key == 'e' || key == 'E') {
-		angulo = angulo - 15;
+		angulo = angulo - variacaoAngulo;
 	}
 }
 
@@ -175,10 +176,10 @@ void Objetos::movimentarInvertido(unsigned char key, int x, int y) {
 	}
 
 	if (key == 'q' || key == 'Q') {
-		angulo = angulo + 15;
+		angulo = angulo + variacaoAngulo;
 	}
 
 	if (key == 'e' || key == 'E') {
-		angulo = angulo - 15;
+		angulo = angulo - variacaoAngulo;
 	}
 }

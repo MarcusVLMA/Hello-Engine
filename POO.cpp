@@ -28,6 +28,7 @@ void Desenho() {
 
 void Teclado(unsigned char key, int x, int y) {
 	fundo1.movimentarInvertido(key, x, y);
+	sonic.movimentar(key, x, y);
 }
 
 int main(int argc, char **argv)
@@ -38,9 +39,9 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
 	glutCreateWindow("Com POO: =) // Sem POO: =(");
 	//glutFullScreen();
-	sonic = Objetos(4, "sonic.png", 0, 0, 0, 0, 0);
+	sonic = Objetos(4, "sonic.png", 0, 0, 0, 15, 0, 0);
 	sonic.queroQuadrado();
-	fundo1 = Objetos(4, "background.png", 0, 0, 0, 0.0125f, 0.00625f);
+	fundo1 = Objetos(4, "background.png", 0, 0, 0, 0, 0.0125f, 0.00625f);
 	fundo1.queroQuadradoDeFundo();
 	glutDisplayFunc(Desenho);
 	glutKeyboardFunc(Teclado);
