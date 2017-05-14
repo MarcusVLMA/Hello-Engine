@@ -1,14 +1,8 @@
 // POO.cpp : Defines the entry point for the console application.
 //
-
 #include "stdafx.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <GL/glut.h>
 #include "Objetos.h"
-#include <SOIL.h>
+
 
 Objetos sonic;
 Objetos fundo1;
@@ -46,7 +40,7 @@ int main(int argc, char **argv)
 	//glutFullScreen();
 	sonic = Objetos(4, "sonic.png", 0, 0, 0, 0, 0);
 	sonic.queroQuadrado();
-	fundo1 = Objetos(4, "background.png", 0, 0, 0, 0.0125, 0.00625);
+	fundo1 = Objetos(4, "background.png", 0, 0, 0, 0.0125f, 0.00625f);
 	fundo1.queroQuadradoDeFundo();
 	glutDisplayFunc(Desenho);
 	glutKeyboardFunc(Teclado);

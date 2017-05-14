@@ -1,19 +1,15 @@
 #include "stdafx.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <GL/glut.h>
 #include "Objetos.h"
-#include <vector>
-#include <SOIL.h>
+
 
 Objetos::Objetos() {
 	numeroDeVertices = 0;
 	idTextura = NULL;
-	posicaoX = 0;
-	posicaoY = 0;
+	posicao.x = 0;
+	posicao.y = 0;
 	angulo = 0;
-	taxaDeVariacaoX = 0;
-	taxaDeVariacaoY = 0;
+	velocidade.x = 0;
+	velocidade.y = 0;
 }
 
 Objetos::Objetos(int numerodevertices, char *filename, float posicaoInicialX, float posicaoInicialY, float anguloInicial, float taxadevariacaoX, float taxadevariacaoY) {
@@ -26,21 +22,23 @@ Objetos::Objetos(int numerodevertices, char *filename, float posicaoInicialX, fl
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	);
 
-	for (int i = 0; i<(2 * numerodevertices); i++) {
-		vetorDeVertices.push_back(0);
+	for (int i = 0; i< numerodevertices; i++) {
+
+		vetorDeVertices.push_back(Vec3());
+		vetorDeCoordenadasDeTexturas.push_back(Vec3());
 	}
 
-	posicaoX = posicaoInicialX;
-	posicaoY = posicaoInicialY;
-	angulo = 0;
-	taxaDeVariacaoX = taxadevariacaoX;
-	taxaDeVariacaoY = taxadevariacaoY;
+	posicao.x = posicaoInicialX;
+	posicao.y = posicaoInicialY;
+	angulo = anguloInicial;
+	velocidade.x = taxadevariacaoX;
+	velocidade.y = taxadevariacaoY;
 }
 
 void Objetos::desenhaQuadradoNaTela() {
 	glLoadIdentity();
 	
-	glTranslatef(posicaoX, posicaoY, 0);
+	glTranslatef(posicao.x, posicao.y, 0);
 
 	glRotatef(angulo, 0, 0, 1);
 
@@ -48,52 +46,81 @@ void Objetos::desenhaQuadradoNaTela() {
 
 	glEnable(GL_TEXTURE_2D);
 
-	glBegin(GL_QUADS);
-
-	//Primeiro vértice no canto superior direito e segue o sentido anti-horário
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(vetorDeVertices[0], vetorDeVertices[1]);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(vetorDeVertices[2], vetorDeVertices[3]);
-
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(vetorDeVertices[4], vetorDeVertices[5]);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(vetorDeVertices[6], vetorDeVertices[7]);
-	glEnd();
+	glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glVertexPointer(3, GL_FLOAT, 0, &vetorDeVertices[0].x);
+			glTexCoordPointer(3, GL_FLOAT, 0, &vetorDeCoordenadasDeTexturas[0].x);
+			glDrawArrays(GL_QUADS, 0, numeroDeVertices);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 	glDisable(GL_TEXTURE_2D);
 }
 
-void Objetos::seteMeusVertices(float *vertices) {
-	for(int i = 0; i < (2*numeroDeVertices); i++) {
-		vetorDeVertices[i] = vertices[i];
+void Objetos::seteMeusVertices(Vec3 *vertices, Vec3 *textura) {
+	for(int i = 0; i < numeroDeVertices; i++) {
+		vetorDeVertices[i].x = vertices[i].x;
+		vetorDeVertices[i].y = vertices[i].y;
+		vetorDeVertices[i].z = vertices[i].z;
+
+		vetorDeCoordenadasDeTexturas[i].x = textura[i].x;
+		vetorDeCoordenadasDeTexturas[i].y = textura[i].y;
+		vetorDeCoordenadasDeTexturas[i].z = textura[i].z;
 	}
+
 }
 
 
 void Objetos::queroQuadrado() {
-	vetorDeVertices[0] = 0.125;
-	vetorDeVertices[1] = 0.250;
-	vetorDeVertices[2] = 0.0;
-	vetorDeVertices[3] = 0.250;
-	vetorDeVertices[4] = 0.0;
-	vetorDeVertices[5] = 0.0;
-	vetorDeVertices[6] = 0.125;
-	vetorDeVertices[7] = 0.0;
+	vetorDeVertices[0].x = 0.125f;
+	vetorDeVertices[0].y = 0.250f;
+
+	vetorDeVertices[1].x = 0.0f;
+	vetorDeVertices[1].y = 0.250f;
+
+	vetorDeVertices[2].x = 0.0f;
+	vetorDeVertices[2].y = 0.0f;
+
+	vetorDeVertices[3].x = 0.125f;
+	vetorDeVertices[3].y = 0.0f;
+	//==============Textura=========
+	vetorDeCoordenadasDeTexturas[0].x = 1.0;
+	vetorDeCoordenadasDeTexturas[0].y = 1.0;
+
+	vetorDeCoordenadasDeTexturas[1].x = 0.0;
+	vetorDeCoordenadasDeTexturas[1].y = 1.0;
+
+	vetorDeCoordenadasDeTexturas[2].x = 0.0;
+	vetorDeCoordenadasDeTexturas[2].y = 0.0;
+
+	vetorDeCoordenadasDeTexturas[3].x = 1.0;
+	vetorDeCoordenadasDeTexturas[3].y = 0.0;
 }
 
 void Objetos::queroQuadradoDeFundo() {
-	vetorDeVertices[0] = 1.992;
-	vetorDeVertices[1] = 1.0;
-	vetorDeVertices[2] = -1.992;
-	vetorDeVertices[3] = 1.0;
-	vetorDeVertices[4] = -1.992;
-	vetorDeVertices[5] = -1.0;
-	vetorDeVertices[6] = 1.992;
-	vetorDeVertices[7] = -1.0;
+	vetorDeVertices[0].x = 1.992f;
+	vetorDeVertices[0].y = 1.0f;
+
+	vetorDeVertices[1].x = -1.992f;
+	vetorDeVertices[1].y = 1.0f;
+
+	vetorDeVertices[2].x = -1.992f;
+	vetorDeVertices[2].y = -1.0f;
+
+	vetorDeVertices[3].x = 1.992f;
+	vetorDeVertices[3].y = -1.0f;
+	//==============Textura=========
+	vetorDeCoordenadasDeTexturas[0].x = 1.0;
+	vetorDeCoordenadasDeTexturas[0].y = 1.0;
+
+	vetorDeCoordenadasDeTexturas[1].x = 0.0;
+	vetorDeCoordenadasDeTexturas[1].y = 1.0;
+
+	vetorDeCoordenadasDeTexturas[2].x = 0.0;
+	vetorDeCoordenadasDeTexturas[2].y = 0.0;
+
+	vetorDeCoordenadasDeTexturas[3].x = 1.0;
+	vetorDeCoordenadasDeTexturas[3].y = 0.0;
 }
 
 void Objetos::movimentar(unsigned char key, int x, int y) {
@@ -102,19 +129,19 @@ void Objetos::movimentar(unsigned char key, int x, int y) {
 	}
 	
 	if (key == 'd' || key == 'D') {
-		posicaoX = posicaoX + taxaDeVariacaoX;
+		posicao.x = posicao.x + velocidade.x;
 	}
 
 	if (key == 'a' || key == 'A') {
-		posicaoX = posicaoX - taxaDeVariacaoX;
+		posicao.x = posicao.x - velocidade.x;
 	}
 
 	if (key == 'w' || key == 'W') {
-		posicaoY = posicaoY + taxaDeVariacaoY;
+		posicao.y = posicao.y + velocidade.y;
 	}
 
 	if (key == 's' || key == 'S') {
-		posicaoY = posicaoY - taxaDeVariacaoY;
+		posicao.y = posicao.y - velocidade.y;
 	}
 
 	if (key == 'q' || key == 'Q') {
@@ -132,19 +159,19 @@ void Objetos::movimentarInvertido(unsigned char key, int x, int y) {
 	}
 	
 	if (key == 'd' || key == 'D') {
-		posicaoX = posicaoX - 0.0125;
+		posicao.x = posicao.x - velocidade.x;
 	}
 
 	if (key == 'a' || key == 'A') {
-		posicaoX = posicaoX + 0.0125;
+		posicao.x = posicao.x + velocidade.x;
 	}
 
 	if (key == 'w' || key == 'W') {
-		posicaoY = posicaoY - 0.0125;
+		posicao.y = posicao.y - velocidade.y;
 	}
 
 	if (key == 's' || key == 'S') {
-		posicaoY = posicaoY + 0.0125;
+		posicao.y = posicao.y + velocidade.y;
 	}
 
 	if (key == 'q' || key == 'Q') {
