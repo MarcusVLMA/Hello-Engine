@@ -1,7 +1,14 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-Sprite::Sprite() {
+Sprite::Sprite()
+	: vectorOfVertex(4), vectorOfTextureCoordinates(4),
+	  position(), velocity(),
+	  renderPriority(),
+	  textureID(0),
+	  angle(0),
+	  angleVariation(0.0f)
+ {
 	vectorOfVertex[0].x = 0.0f;
 	vectorOfVertex[0].y = 0.0f;
 	vectorOfVertex[1].x = 0.125f;
@@ -14,6 +21,28 @@ Sprite::Sprite() {
 	velocity.x = 0;
 	velocity.y = 0;
 }
+
+Sprite::~Sprite()
+{
+}
+
+// lhs = rhs
+Sprite::Sprite( const Sprite& rhs )
+	: vectorOfVertex(rhs.vectorOfVertex), vectorOfTextureCoordinates(rhs.vectorOfTextureCoordinates),
+	  position(rhs.position), velocity(rhs.velocity),
+	  renderPriority(rhs.renderPriority),
+	  textureID(rhs.textureID),
+	  angle(rhs.angle),
+	  angleVariation(rhs.angleVariation)
+{
+}
+
+Sprite& Sprite::operator=(const Sprite&)
+{
+return *this;
+}
+
+
 
 void Sprite::render() {
 	glLoadIdentity();

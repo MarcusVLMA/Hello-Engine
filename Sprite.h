@@ -9,15 +9,26 @@ class Sprite
 	
 
 public:
-	int renderPriority;
-	GLuint textureID;
-	std::vector<Vec3> vectorOfVertex;
-	std::vector<Vec3> vectorOfTextureCoordinates;
-	Vec3 position;
-	Vec3 velocity;
-	float angle;
-	float angleVariation;
-	void Sprite::render();
+	
+	std::vector<Vec3> vectorOfVertex; // 24
+	std::vector<Vec3> vectorOfTextureCoordinates; // 24
+	Vec3 position; // 12
+	Vec3 velocity; // 12	
+	
+	int renderPriority; // 4
+	GLuint textureID; // 4
+	
+	float angle; // 4
+	float angleVariation; // 4
+	
+	
+	
+	void render();
 	Sprite();
+	~Sprite();
+	
+	//
+	Sprite( const Sprite& );
+	Sprite& operator=(const Sprite&);
 };
 
