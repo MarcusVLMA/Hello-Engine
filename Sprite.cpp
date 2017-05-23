@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Sprite.h"
+#include <GL/glut.h>
 
 Sprite::Sprite()
 	: vectorOfVertex(4), vectorOfTextureCoordinates(4),

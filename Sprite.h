@@ -2,7 +2,6 @@
 #include "stdafx.h"
 #include <vector>
 #include "Vec3.h"
-#include <GL/glut.h>
 
 class Sprite
 {
@@ -16,7 +15,7 @@ public:
 	Vec3 velocity; // 12	
 	
 	int renderPriority; // 4
-	GLuint textureID; // 4
+	unsigned int textureID; // 4
 	
 	float angle; // 4
 	float angleVariation; // 4

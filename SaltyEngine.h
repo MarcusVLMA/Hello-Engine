@@ -1,13 +1,8 @@
 #pragma once
 #include "stdafx.h"
-#include <GL/glut.h>
 #include "Sprite.h"
 #include "Vec3.h"
-#ifdef WIN32
-	#include <SOIL.h>
-#else
-	#include <SOIL/SOIL.h>
-#endif
+
 
 /// TODO: buscar livros (b) Effective STL e (a) Effective C++
 class SaltyEngine {

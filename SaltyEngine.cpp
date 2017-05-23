@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "SaltyEngine.h"
 
+#include <GL/glut.h>
+#ifdef WIN32
+	#include <SOIL.h>
+#else
+	#include <SOIL/SOIL.h>
+#endif
+
 static SaltyEngine* theEngine = nullptr;
 
 static void renderOneFrame()
