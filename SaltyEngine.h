@@ -11,8 +11,9 @@
 
 /// TODO: buscar livros (b) Effective STL e (a) Effective C++
 class SaltyEngine {
-	// TODO usar ponteiro para Sprite, ou seja,  std::vector<Sprite*>
-	std::vector<Sprite> sprites;
+	//  usa ponteiro para Sprite, ou seja,  std::vector<Sprite*>
+	std::vector<Sprite*> sprites;
+	
 	int getLastLayer();
 public:
 	
@@ -28,7 +29,6 @@ public:
 	void setWindow(int positionX, int positionY, int width, int height);
 	void createWindow(const char *header, bool isFullscreen);
 	void loop(/* void(*drawingFunction)(void)*/);
-	void setTexture(Sprite *sprite, const char *fileName, int renderpriority);
+	Sprite* createSprite( const char *fileName, int renderpriority);
 	void render();
-	void add(Sprite sprite);
 };

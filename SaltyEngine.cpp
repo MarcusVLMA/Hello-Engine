@@ -34,6 +34,10 @@ SaltyEngine::SaltyEngine()
 SaltyEngine::~SaltyEngine()
 {
 	// liberar
+	for( Sprite* ptr : sprites )
+	{
+		delete ptr;
+	}
 	sprites.clear();
 }
 
@@ -68,7 +72,8 @@ void SaltyEngine::loop() {
 	glutMainLoop();
 }
 
-void SaltyEngine::setTexture(Sprite *sprite, const char *fileName, int renderpriority) {
+Sprite* SaltyEngine::createSprite( const char *fileName, int renderpriority) {
+	Sprite *sprite = new Sprite();
 	sprite->vectorOfTextureCoordinates[0].x = 0;
 	sprite->vectorOfTextureCoordinates[0].y = 0;
 
@@ -91,14 +96,16 @@ void SaltyEngine::setTexture(Sprite *sprite, const char *fileName, int renderpri
 	);
 	
 	//
-	sprites.push_back( *sprite );
+	sprites.push_back( sprite );
+	
+	return sprite;
 }
 
 int SaltyEngine::getLastLayer() {
 	int lastLayer = 0;
 	for (int i = 0; i < sprites.size(); i++) {
-		if (lastLayer < sprites[i].renderPriority) {
-			lastLayer = sprites[i].renderPriority;
+		if (lastLayer < sprites[i]->renderPriority) {
+			lastLayer = sprites[i]->renderPriority;
 		}
 	}
 	return lastLayer;
@@ -107,13 +114,10 @@ int SaltyEngine::getLastLayer() {
 void SaltyEngine::render() {
 	for(int i = getLastLayer(); i >= 0; i--) {
 		for (int j = 0; j < sprites.size(); j++) {
-			if (sprites[j].renderPriority == i) {
-				sprites[j].render();
+			if (sprites[j]->renderPriority == i) {
+				sprites[j]->render();
 			}
 		}
 	}
 }
 
-void SaltyEngine::add(Sprite sprite) {
-	sprites.push_back(sprite);
-}
