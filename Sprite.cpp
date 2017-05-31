@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include "Sprite.h"
-#include <GL/glut.h>
+#include "SaltyEngineIncludes.h"
 
 Sprite::Sprite()
 	: vectorOfVertex(4), vectorOfTextureCoordinates(4),
@@ -8,17 +7,8 @@ Sprite::Sprite()
 	  renderPriority(),
 	  textureID(0),
 	  angle(0),
-	  angleVariation(0.0f)
+	  angleSpeed(0.0f)
  {
-	vectorOfVertex[0].x = 0.0f;
-	vectorOfVertex[0].y = 0.0f;
-	vectorOfVertex[1].x = 0.125f;
-	vectorOfVertex[1].y = 0.0f;
-	vectorOfVertex[2].x = 0.125f;
-	vectorOfVertex[2].y = 0.125f;
-	vectorOfVertex[3].x = 0.0f;
-	vectorOfVertex[3].y = 0.125f;
-
 	velocity.x = 0;
 	velocity.y = 0;
 }
@@ -34,7 +24,7 @@ Sprite::Sprite( const Sprite& rhs )
 	  renderPriority(rhs.renderPriority),
 	  textureID(rhs.textureID),
 	  angle(rhs.angle),
-	  angleVariation(rhs.angleVariation)
+	  angleSpeed(rhs.angleSpeed)
 {
 }
 
@@ -42,8 +32,6 @@ Sprite& Sprite::operator=(const Sprite&)
 {
 return *this;
 }
-
-
 
 void Sprite::render() {
 	glLoadIdentity();
@@ -66,4 +54,3 @@ void Sprite::render() {
 
 	glDisable(GL_TEXTURE_2D);
 }
-
