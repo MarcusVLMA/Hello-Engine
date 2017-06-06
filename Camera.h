@@ -7,9 +7,9 @@ class Camera
 
 public:
 	Vec3 lookingTo;
-	char *cameraName;
+	std::string cameraName;
 
-	Camera& Camera::operator=(const Camera&);
+	Camera& operator=(const Camera&);
 	Camera(const Camera& rhs);
 
 	Camera();

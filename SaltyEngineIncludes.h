@@ -1,15 +1,30 @@
+#pragma once
 #include "stdafx.h"
-#include "Vec3.h"
-#include "Sprite.h"
-#include "SaltyEngine.h"
-#include "Camera.h"
+
+// bibliotecas de containeres
+#include <cassert>
 #include <vector>
+#include <list>
+#include <map>
+
 #include <GL/glut.h>
 #ifdef WIN32
 	#include <SOIL.h>
 #else
 	#include <SOIL/SOIL.h>
 #endif
+
+class Camera;
+class SaltyEngine;
+class Sprite;
+class Vec3;
+
+
+#include "Vec3.h"
+#include "Sprite.h"
+#include "SaltyEngine.h"
+#include "Camera.h"
+
 
 /*Lista de Mudanças
 - Criação de um Vetor de Vértices padrão(SaltyEngine.h)

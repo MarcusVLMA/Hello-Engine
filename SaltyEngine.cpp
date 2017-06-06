@@ -3,10 +3,19 @@
 
 static SaltyEngine* theEngine = nullptr;
 
-static void moveFromKeyboard(unsigned char key, int x, int y) {
-	if (key == 27) {
+std::vector<Vec3> SaltyEngine::StandardVectorOfVertex;
+
+
+void SaltyEngine::moveFromKeyboard(unsigned char key, int x, int y) {
+
+	assert( theEngine );
+
+	if (key == 27 ) {
 		theEngine->shutdown();
 	}
+	
+	assert( theEngine->principalCharacter );
+	
 	if (key == 'd' || key == 'D') {
 		theEngine->principalCharacter->position.x = theEngine->principalCharacter->position.x + theEngine->principalCharacter->velocity.x;
 	}
@@ -27,14 +36,21 @@ static void moveFromKeyboard(unsigned char key, int x, int y) {
 	}
 }
 
-static void renderFrame() {
+void SaltyEngine::renderFrame() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	
 	gluPerspective(75, (1366 / 768), 0.5, 100);
-	gluLookAt(0, 0, 1, theEngine->activeCamera->lookingTo.x, theEngine->activeCamera->lookingTo.y, theEngine->activeCamera->lookingTo.z, 0, 1, 0);
+	if( theEngine->activeCamera )
+	{
+		gluLookAt(0, 0, 1, theEngine->activeCamera->lookingTo.x, theEngine->activeCamera->lookingTo.y, theEngine->activeCamera->lookingTo.z, 0, 1, 0);
+	}else
+	{
+		gluLookAt( /*eye*/ 0, 0, 1,  /*target*/ 0,0,0, /*up*/ 0, 1, 0);
+	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -51,6 +67,7 @@ static void renderFrame() {
 SaltyEngine::SaltyEngine()
 	: sprites()
 {
+	StandardVectorOfVertex.resize( 4 );
 	StandardVectorOfVertex[0].x = 0.0f;
 	StandardVectorOfVertex[0].y = 0.0f;
 	StandardVectorOfVertex[1].x = 0.125f;
@@ -102,7 +119,7 @@ void SaltyEngine::loop() {
 	glutMainLoop();
 }
 
-Sprite* SaltyEngine::createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex = theEngine->StandardVectorOfVertex) {
+Sprite* SaltyEngine::createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex ) {
 	Sprite *sprite = new Sprite();
 	sprite->vectorOfTextureCoordinates[0].x = ownVectorOfVertex[0].x;
 	sprite->vectorOfTextureCoordinates[0].y = ownVectorOfVertex[0].y;
@@ -131,7 +148,7 @@ Sprite* SaltyEngine::createSprite(const char *fileName, int renderpriority, std:
 	return sprite;
 }
 
-Camera* SaltyEngine::createCamera(char *name, float lookX, float lookY, float lookZ, Sprite *sprite = nullptr) {
+Camera* SaltyEngine::createCamera(const char *name, float lookX, float lookY, float lookZ, Sprite *sprite ) {
 	Camera *camera = new Camera();
 	camera->cameraName = name;
 
@@ -179,6 +196,6 @@ void SaltyEngine::render() {
 	}
 }
 
-void SaltyEngine::principalCharacter(Sprite *character) {
+void SaltyEngine::setMainCharacter(Sprite *character) {
 	theEngine->principalCharacter = character;
 }

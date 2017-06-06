@@ -12,6 +12,9 @@ class SaltyEngine {
 	Sprite *principalCharacter;
 
 	int getLastLayer();
+	
+	static void moveFromKeyboard(unsigned char key, int x, int y);
+	static void renderFrame();
 
 public:
 	
@@ -29,9 +32,9 @@ public:
 	void setWindow(int positionX, int positionY, int width, int height);
 	void createWindow(const char *header, bool isFullscreen);
 	void loop();
-	Sprite* createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex);
-	Camera* createCamera(char *name, float lookX, float lookY, float lookZ, Sprite *sprite = nullptr);
+	Sprite* createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex );
+	Camera* createCamera(const char *name, float lookX, float lookY, float lookZ, Sprite *sprite = nullptr);
 	void useCamera(Camera *camera);
-	void principalCharacter(Sprite *character);
+	void setMainCharacter(Sprite *character);
 	void render();
 };
