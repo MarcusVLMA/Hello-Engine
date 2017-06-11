@@ -32,7 +32,7 @@ public:
 	void setWindow(int positionX, int positionY, int width, int height);
 	void createWindow(const char *header, bool isFullscreen);
 	void loop();
-	Sprite* createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex );
+	Sprite* createSprite(const char *fileName, int renderpriority, float velocityX, float velocityY, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex );
 	Camera* createCamera(const char *name, float lookX, float lookY, float lookZ, Sprite *sprite = nullptr);
 	void useCamera(Camera *camera);
 	void setMainCharacter(Sprite *character);

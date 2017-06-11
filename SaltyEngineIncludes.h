@@ -6,6 +6,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <iostream>
 
 #include <GL/glut.h>
 #ifdef WIN32

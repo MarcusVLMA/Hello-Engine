@@ -42,8 +42,7 @@ void SaltyEngine::renderFrame() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	
-	gluPerspective(75, (1366 / 768), 0.5, 100);
+	gluPerspective(75, (1368 / 768), 0.5, 100);
 	if( theEngine->activeCamera )
 	{
 		gluLookAt(0, 0, 1, theEngine->activeCamera->lookingTo.x, theEngine->activeCamera->lookingTo.y, theEngine->activeCamera->lookingTo.z, 0, 1, 0);
@@ -67,14 +66,14 @@ void SaltyEngine::renderFrame() {
 SaltyEngine::SaltyEngine()
 	: sprites()
 {
-	StandardVectorOfVertex.resize( 4 );
-	StandardVectorOfVertex[0].x = 0.0f;
-	StandardVectorOfVertex[0].y = 0.0f;
+	StandardVectorOfVertex.resize(4);
+	StandardVectorOfVertex[0].x = -0.125f;
+	StandardVectorOfVertex[0].y = -0.125f;
 	StandardVectorOfVertex[1].x = 0.125f;
-	StandardVectorOfVertex[1].y = 0.0f;
+	StandardVectorOfVertex[1].y = -0.125f;
 	StandardVectorOfVertex[2].x = 0.125f;
 	StandardVectorOfVertex[2].y = 0.125f;
-	StandardVectorOfVertex[3].x = 0.0f;
+	StandardVectorOfVertex[3].x = -0.125f;
 	StandardVectorOfVertex[3].y = 0.125f;
 
 	theEngine = this;
@@ -119,21 +118,38 @@ void SaltyEngine::loop() {
 	glutMainLoop();
 }
 
-Sprite* SaltyEngine::createSprite(const char *fileName, int renderpriority, std::vector<Vec3> ownVectorOfVertex ) {
+Sprite* SaltyEngine::createSprite(const char *fileName, int renderpriority, float velocityX, float velocityY, std::vector<Vec3> ownVectorOfVertex ) {
 	Sprite *sprite = new Sprite();
-	sprite->vectorOfTextureCoordinates[0].x = ownVectorOfVertex[0].x;
-	sprite->vectorOfTextureCoordinates[0].y = ownVectorOfVertex[0].y;
 
-	sprite->vectorOfTextureCoordinates[1].x = ownVectorOfVertex[1].x;
-	sprite->vectorOfTextureCoordinates[1].y = ownVectorOfVertex[1].y;
+	sprite->vectorOfVertex[0].x = ownVectorOfVertex[0].x;
+	sprite->vectorOfVertex[0].y = ownVectorOfVertex[0].y;
 
-	sprite->vectorOfTextureCoordinates[2].x = ownVectorOfVertex[2].x;
-	sprite->vectorOfTextureCoordinates[2].y = ownVectorOfVertex[2].y;
+	sprite->vectorOfVertex[1].x = ownVectorOfVertex[1].x;
+	sprite->vectorOfVertex[1].y = ownVectorOfVertex[1].y;
 
-	sprite->vectorOfTextureCoordinates[3].x = ownVectorOfVertex[3].x;
-	sprite->vectorOfTextureCoordinates[3].y = ownVectorOfVertex[3].y;
+	sprite->vectorOfVertex[2].x = ownVectorOfVertex[2].x;
+	sprite->vectorOfVertex[2].y = ownVectorOfVertex[2].y;
+
+	sprite->vectorOfVertex[3].x = ownVectorOfVertex[3].x;
+	sprite->vectorOfVertex[3].y = ownVectorOfVertex[3].y;
+
+
+	sprite->vectorOfTextureCoordinates[0].x = 0.0f;
+	sprite->vectorOfTextureCoordinates[0].y = 0.0f;
+
+	sprite->vectorOfTextureCoordinates[1].x = 1.0f;
+	sprite->vectorOfTextureCoordinates[1].y = 0.0f;
+
+	sprite->vectorOfTextureCoordinates[2].x = 1.0f;
+	sprite->vectorOfTextureCoordinates[2].y = 1.0f;
+
+	sprite->vectorOfTextureCoordinates[3].x = 0.0f;
+	sprite->vectorOfTextureCoordinates[3].y = 1.0f;
 
 	sprite->renderPriority = renderpriority;
+
+	sprite->velocity.x = velocityX;
+	sprite->velocity.y = velocityY;
 
 	sprite->textureID = SOIL_load_OGL_texture(
 		fileName,
