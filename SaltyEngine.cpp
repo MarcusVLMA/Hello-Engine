@@ -34,6 +34,12 @@ void SaltyEngine::moveFromKeyboard(unsigned char key, int x, int y) {
 	if (key == 'e' || key == 'E') {
 		theEngine->principalCharacter->angle = theEngine->principalCharacter->angle - theEngine->principalCharacter->angleSpeed;
 	}
+	
+	// NOTA: atualiza camera no final
+	if( theEngine->activeCamera )
+	{
+		theEngine->activeCamera->lookingTo = theEngine->principalCharacter->position;
+	}
 }
 
 void SaltyEngine::renderFrame() {
@@ -43,6 +49,8 @@ void SaltyEngine::renderFrame() {
 	glLoadIdentity();
 
 	gluPerspective(75, (1368 / 768), 0.5, 100);
+	//gluOrtho2D(75, (1368 / 768), 0.5, 100);
+	
 	if( theEngine->activeCamera )
 	{
 		gluLookAt(0, 0, 1, theEngine->activeCamera->lookingTo.x, theEngine->activeCamera->lookingTo.y, theEngine->activeCamera->lookingTo.z, 0, 1, 0);

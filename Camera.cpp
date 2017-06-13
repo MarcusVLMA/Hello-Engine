@@ -2,7 +2,9 @@
 #include "SaltyEngineIncludes.h"
 
 
-Camera::Camera(){
+Camera::Camera()
+	: lookingTo(0,0,0), cameraName("camera")
+{
 	
 }
 

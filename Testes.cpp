@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	background = engine.createSprite("spacebackground.png", 1, 0, 0, vertexOfBackground);
 	camera = engine.createCamera("Minha Camera", 0, 0, 0, nave);
 	engine.setMainCharacter(nave);
-	//engine.useCamera(camera); ?
+	engine.useCamera(camera); 
 	engine.loop();
 
 	return 0;

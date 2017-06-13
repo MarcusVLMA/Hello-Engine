@@ -18,6 +18,9 @@ public:
 	float angle; // 4
 	float angleSpeed; // 4
 	
+	//
+	//bool transparent;
+	
 	void render();
 
 	Sprite();
