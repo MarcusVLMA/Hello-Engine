@@ -17,15 +17,14 @@ public:
 	
 	float angle; // 4
 	float angleSpeed; // 4
-	
-	//
-	//bool transparent;
+
+	bool transparent;
 	
 	void render();
 
 	Sprite();
 	~Sprite();
 	
-	Sprite( const Sprite& );
+	Sprite(const Sprite&);
 	Sprite& operator=(const Sprite&);
 };

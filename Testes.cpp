@@ -5,7 +5,7 @@
 #include "SaltyEngineIncludes.h"
 
 SaltyEngine engine;
-Sprite *nave;
+Sprite *dva;
 Sprite *background;
 Camera *camera;
 
@@ -28,10 +28,10 @@ int main(int argc, char **argv)
 	engine.start(argc, argv);
 	engine.setWindow(0, 0, 1366, 768);
 	engine.createWindow("Made with SaltyEngine", false);
-	nave = engine.createSprite("Naveira.png", 0, 0.0125, 0.0125);
-	background = engine.createSprite("spacebackground.png", 1, 0, 0, vertexOfBackground);
-	camera = engine.createCamera("Minha Camera", 0, 0, 0, nave);
-	engine.setMainCharacter(nave);
+	dva = engine.createSprite("dva.png", 0, 0.0125, 0.0125, true);
+	background = engine.createSprite("spacebackground.png", 1, 0, 0, false, vertexOfBackground);
+	camera = engine.createCamera("Minha Camera", 0, 0, 0, dva);
+	engine.setMainCharacter(dva);
 	engine.useCamera(camera); 
 	engine.loop();
 

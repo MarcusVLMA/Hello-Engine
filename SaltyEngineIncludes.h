@@ -19,12 +19,16 @@ class Camera;
 class SaltyEngine;
 class Sprite;
 class Vec3;
+class Event;
+class Command;
 
 
 #include "Vec3.h"
 #include "Sprite.h"
 #include "SaltyEngine.h"
 #include "Camera.h"
+#include "Event.h"
+#include "Command.h"
 
 
 /*Lista de Mudanças

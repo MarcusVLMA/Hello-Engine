@@ -9,7 +9,11 @@ class SaltyEngine {
 	std::vector<Sprite*> sprites;
 	std::vector<Camera*> cameras;
 	static std::vector<Vec3> StandardVectorOfVertex;
+	static std::vector<Vec3> vectorOfVerticalGrid;
+	static std::vector<Vec3> vectorOfHorizontalGrid;
 	Sprite *principalCharacter;
+	bool turnGridOn;
+	bool debugMode;
 
 	int getLastLayer();
 	
@@ -32,9 +36,11 @@ public:
 	void setWindow(int positionX, int positionY, int width, int height);
 	void createWindow(const char *header, bool isFullscreen);
 	void loop();
-	Sprite* createSprite(const char *fileName, int renderpriority, float velocityX, float velocityY, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex );
+	Sprite* createSprite(const char *fileName, int renderpriority, float velocityX, float velocityY, bool isTransparent, std::vector<Vec3> ownVectorOfVertex = StandardVectorOfVertex);
 	Camera* createCamera(const char *name, float lookX, float lookY, float lookZ, Sprite *sprite = nullptr);
 	void useCamera(Camera *camera);
 	void setMainCharacter(Sprite *character);
 	void render();
+	void renderGrid();
+	void screenshot();
 };

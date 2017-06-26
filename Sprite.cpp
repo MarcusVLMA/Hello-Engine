@@ -11,6 +11,7 @@ Sprite::Sprite()
  {
 	velocity.x = 0;
 	velocity.y = 0;
+	transparent = false;
 }
 
 Sprite::~Sprite()
@@ -36,10 +37,10 @@ return *this;
 void Sprite::render() {
 	glLoadIdentity();
 	
-	//
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-	
+	if(transparent) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	}
 
 	glTranslatef(position.x, position.y, 0);
 
