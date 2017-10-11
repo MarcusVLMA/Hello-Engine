@@ -1,30 +1,23 @@
+#ifndef SALTY_ENGINE_SPRITE_CLASS_H__
+#define SALTY_ENGINE_SPRITE_CLASS_H__
 #pragma once
-#include "stdafx.h"
-#include "SaltyEngineIncludes.h"
 
-class Sprite
-{
-	
-public:
-	
-	std::vector<Vec3> vectorOfVertex; // 24
-	std::vector<Vec3> vectorOfTextureCoordinates; // 24
-	Vec3 position; // 12
-	Vec3 velocity; // 12	
-	
-	int renderPriority; // 4
-	unsigned int textureID; // 4
-	
-	float angle; // 4
-	float angleSpeed; // 4
+class Sprite {
 
+	unsigned int textureID;
 	bool transparent;
-	
-	void render();
 
+public:
 	Sprite();
+	Sprite(int ptextureID, bool ptransparent);
 	~Sprite();
-	
+
 	Sprite(const Sprite&);
 	Sprite& operator=(const Sprite&);
+
+	unsigned int getTextureID() const;
+	bool isTransparent() const;
 };
+
+#endif /* SALTY_ENGINE_SPRITE_CLASS_H__ */
+

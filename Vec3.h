@@ -1,44 +1,50 @@
-#ifndef Vec3_CLASS_H
-#define Vec3_CLASS_H
+#ifndef SALTY_ENGINE_VEC3_CLASS_H__
+#define SALTY_ENGINE_VEC3_CLASS_H__
+
+#pragma once
 
 #include <cmath>
+#include <vector>
 
-/// Trasformar em Vec3
+/** @brief Documente isso!!!!
+*/
 class Vec3
 {
 public:
 	Vec3()
-	 : x(0), y(0), z(0) 
+		: x(0), y(0), z(0)
 	{}
-	Vec3( float X, float Y, float Z )
-	 : x(X), y(Y), z(Z)
+	Vec3(float xx, float yy, float zz = 0.0f)
+		: x(xx), y(yy), z(zz)
 	{}
-	
+
 	float length() const
 	{
-		return sqrt(x*x + y*y); // sem usar Z
+		return sqrt(x*x + y*y + z*z); // sem usar Z
 	}
 
-	float distance2( const Vec3& v ) const
+	float distance2(const Vec3& v) const
 	{
 		const float dx = x - v.x;
 		const float dy = y - v.y;
+		const float dz = y - v.y;
 
-		return dx*dx + dy*dy;
+		return dx*dx + dy*dy + dz*dz;
 	}
-	
-	float distance( const Vec3& v ) const
+
+	float distance(const Vec3& v) const
 	{
 		const float dx = x - v.x;
 		const float dy = y - v.y;
+		const float dz = y - v.y;
 
-		return sqrt(dx*dx + dy*dy);
+		return sqrt(dx*dx + dy*dy + dz*dz);
 	}
-	
+
 	Vec3& normalize()
 	{
-		return (*this) /= sqrt(x*x + y*y);
-	}	
+		return (*this) /= sqrt(x*x + y*y + z*z);
+	}
 
 	Vec3& operator /=(float f)
 	{
@@ -48,38 +54,38 @@ public:
 
 		return *this;
 	}
-	
+
 	Vec3 operator *(float f) const
 	{
-		return Vec3( x*f, y*f, z*f );
+		return Vec3(x*f, y*f, z*f);
 	}
 	friend Vec3 operator *(float f, const Vec3& v)
 	{
-		return Vec3( v.x*f, v.y*f, v.z*f );
+		return Vec3(v.x*f, v.y*f, v.z*f);
 	}
 	Vec3 operator+(const Vec3& v) const
 	{
-		return Vec3( x + v.x, y + v.y, 0 );
+		return Vec3(x + v.x, y + v.y, z + v.z);
 	}
 	Vec3& operator+=(const Vec3& v)
 	{
 		x += v.x;
 		y += v.y;
 		z += v.z;
-		
+
 		return *this;
 	}
-	
+
 	Vec3 operator-(const Vec3& v) const
 	{
-		return Vec3( x - v.x, y - v.y, 0 );
+		return Vec3(x - v.x, y - v.y, z - v.z);
 	}
 
 	float x, y, z;
 };
 
+typedef std::vector<Vec3> Vec3Vector;
 
 
-
-#endif
+#endif /* SALTY_ENGINE_VEC3_CLASS_H__ */
 

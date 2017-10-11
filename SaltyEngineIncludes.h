@@ -1,48 +1,47 @@
-#pragma once
-#include "stdafx.h"
+#ifndef SALTY_ENGINE_CORE_HEADERS_H__
+#define SALTY_ENGINE_CORE_HEADERS_H__
 
-// bibliotecas de containeres
+
+// bibliotecas de containeres e algoritmos da STL
 #include <cassert>
 #include <vector>
 #include <list>
 #include <map>
 #include <iostream>
+#include <algorithm>
 
-#include <GL/glut.h>
 #ifdef WIN32
-	#include <SOIL.h>
+#include <GL/glut.h>
+#include <SOIL.h>
 #else
-	#include <SOIL/SOIL.h>
+#include <GL/glut.h>
+#include <SOIL/SOIL.h>
 #endif
 
+// pr�-declara��es de classes
 class Camera;
+class Scene;
+class SceneActor;
 class SaltyEngine;
 class Sprite;
+class POV;
 class Vec3;
-class Event;
-class Command;
 
-
+// containeres
+typedef std::vector<Camera*>     CameraVector;
+typedef std::vector<Scene*>		 SceneVector;
+typedef std::vector<SceneActor*> SceneActorVector;
+typedef std::vector<Sprite*>     SpriteVector;
+typedef std::vector<POV*>		 PovVector;
 #include "Vec3.h"
+#include "POV.h"
 #include "Sprite.h"
-#include "SaltyEngine.h"
+#include "SceneActor.h"
+#include "Scene.h"
 #include "Camera.h"
-#include "Event.h"
-#include "Command.h"
+
+#include "SaltyEngine.h"
+
+#endif /* SALTY_ENGINE_CORE_HEADERS_H__ */
 
 
-/*Lista de Mudanças
-- Criação de um Vetor de Vértices padrão(SaltyEngine.h)
-	*Alteração no Construtor
-- Implementação de camera (Camera.h)
-	*Alteração em SaltyEngine.cpp->renderOneFrame()
-- Implementação de movimentação (SaltyEngine.h)
-	*Obs: Sem parallax
-
-*/
-
-/*Duvidas
-- Como funciona
-	*Sprite( const Sprite& );
-	*Sprite& operator=(const Sprite&);
-*/
