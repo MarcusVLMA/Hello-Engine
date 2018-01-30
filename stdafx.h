@@ -1,6 +1,6 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
+// stdafx.h : arquivo de inclusão para inclusões do sistema padrões,
+// ou inclusões específicas de projeto que são utilizadas frequentemente, mas
+// são modificadas raramente
 //
 
 #pragma once
@@ -8,10 +8,8 @@
 #include "targetver.h"
 
 #include <stdio.h>
-#ifdef _WIN32
-	#include <tchar.h>
-#endif
+#include <tchar.h>
 
 
 
-// TODO: reference additional headers your program requires here
+// TODO: adicionar referências de cabeçalhos adicionais que seu programa necessita

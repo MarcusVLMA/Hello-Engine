@@ -1,9 +1,15 @@
 #ifndef SALTY_ENGINE_SCENE_ACTOR_CLASS_H__
 #define SALTY_ENGINE_SCENE_ACTOR_CLASS_H__
 
+#include "stdafx.h"
 #include "Vec3.h"
+#include "Named.h"
+#include "Sprite.h"
 
-class SceneActor {
+namespace salty
+{
+
+class SceneActor : public Named {
 	Vec3Vector vectorOfVertex;
 	Vec3Vector vectorOfTextureCoordinates;
 
@@ -39,7 +45,12 @@ public:
 
 	int          getRenderPriority() const;
 	unsigned int getSceneActorID()   const;
+
+	void setPositionX(float xValue);
+	void setPositionY(float yValue);
+	void setPosition (float xValue, float yValue);
 };
+}
 
 #endif /* SALTY_ENGINE_SCENE_ACTOR_CLASS_H__ */
 

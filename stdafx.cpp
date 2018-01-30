@@ -1,8 +1,8 @@
-// stdafx.cpp : source file that includes just the standard includes
-// POO.pch will be the pre-compiled header
-// stdafx.obj will contain the pre-compiled type information
+// stdafx.cpp : arquivo de origem que inclui apenas as inclusões padrões
+// $safeprojectname$.pch será o cabeçalho pré-compilado
+// stdafx.obj conterá as informações de tipo pré-compiladas
 
 #include "stdafx.h"
 
-// TODO: reference any additional headers you need in STDAFX.H
-// and not in this file
+// TODO: referencie qualquer cabeçalho adicional necessário em STDAFX.H
+// e não neste arquivo

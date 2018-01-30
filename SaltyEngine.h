@@ -5,65 +5,64 @@
 #include "SceneActor.h"
 #include "Sprite.h"
 
-class SaltyEngine {
+namespace salty
+{
+	class SaltyEngine {
 
-	SaltyEngine();
+		SaltyEngine();
 
-	static SaltyEngine* instance;
+		static SaltyEngine* instance;
 
-	SceneVector sceneRepository;
-	CameraVector cameraRepository;
+		SceneVector sceneRepository;
+		CameraVector cameraRepository;
 
-	static void displayFunc();
-	static void keyboardFunc(unsigned char key, int x, int y);
-	static void mouseFunc(int button, int state, int x, int y);
+		static void displayFunc();
+		static void keyboardFunc(unsigned char key, int x, int y);
+		static void mouseFunc(int button, int state, int x, int y);
 
-public:
+	public:
 
-	static SaltyEngine& getInstance();
+		static SaltyEngine& getInstance(); 
 
-	~SaltyEngine();
+		~SaltyEngine();
 
-	// ---------------------------------- Engine Methods ----------------------------------
+		// ---------------------------------- Engine Methods ----------------------------------
 
-	void start(int argc, char **argv);
-	void shutdown();
-	void kill();
-	void setWindow(int positionX, int positionY, int width, int height);
-	void createWindow(const char *header, bool isFullscreen);
-	void loop();
-	void screenshot();
-
-	// -------------------------------------------------------------------------------------
-
-
-	// ---------------------------------- SceneActor Methods ----------------------------------
-
-	SceneActor* createSceneActor(Vec3Vector pvectorOfVertex, Vec3Vector pvectorOfTextureCoordinates, Sprite* psprite,
-		float pxSpeed, float pySpeed,
-		int prenderPriority, unsigned int psceneActorID);
-
-	// ----------------------------------------------------------------------------------------
+		void start(int argc, char **argv); 
+		void shutdown();
+		void kill();
+		void setWindow(int positionX, int positionY, int width, int height);
+		void createWindow(const char *header, bool isFullscreen);
+		void loop();
+		void screenshot();
 
 
-	// ---------------------------------- Sprite Methods ----------------------------------
+		// ---------------------------------- Scene Methods -----------------------------------
 
-	Sprite* createSprite(const char *filename, bool isTransparent);
+		Scene* createScene( const char* name, unsigned int id );
+		Scene* getSceneByName( const char* name );
+		Scene* getSceneById( unsigned int id );
 
 
-	// ------------------------------------------------------------------------------------
+		// ---------------------------------- SceneActor Methods ----------------------------------
 
-	// ---------------------------------- Camera Methods ----------------------------------
-	Camera* createCamera(float xLookingTo, float yLookingTo, float zLookingTo,
-		float xPosition, float yPosition, float zPosition,
-		unsigned int pcameraID);
+		SceneActor* createSceneActor(Vec3Vector pvectorOfVertex, Vec3Vector pvectorOfTextureCoordinates, Sprite* psprite,
+			float pxSpeed, float pySpeed,
+			int prenderPriority, unsigned int psceneActorID);
 
-	Camera* getCamera(unsigned int cameraID);
 
-	void addCamera(Camera* pcamera);
+		// ---------------------------------- Sprite Methods ----------------------------------
 
-	void removeCamera(unsigned int pcameraID);
+		Sprite* createSprite(const char *filename, bool isTransparent);
 
-	//void followSceneActor(SceneActor*, Camera*);
-};
 
+		// ---------------------------------- Camera Methods ----------------------------------
+		Camera* createCamera(Scene* pscene, POV* ppov, float xPosition, float yPosition, float zPosition, unsigned int pcameraID);
+
+		Camera* getCamera(unsigned int cameraID);
+
+		void addCamera(Camera* pcamera);
+
+		void removeCamera(unsigned int pcameraID);
+	};
+}

@@ -2,6 +2,8 @@
 #define SALTY_ENGINE_SPRITE_CLASS_H__
 #pragma once
 
+namespace salty
+{
 class Sprite {
 
 	unsigned int textureID;
@@ -20,4 +22,4 @@ public:
 };
 
 #endif /* SALTY_ENGINE_SPRITE_CLASS_H__ */
-
+}

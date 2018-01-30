@@ -18,22 +18,30 @@
 #include <SOIL/SOIL.h>
 #endif
 
-// pré-declarações de classes
-class Camera;
-class Scene;
-class SceneActor;
-class SaltyEngine;
-class Sprite;
-class POV;
-class Vec3;
+// prÃ©-declaraÃ§Ãµes de classes
+namespace salty
+{
+	typedef std::string String;
 
-// containeres
-typedef std::vector<Camera*>     CameraVector;
-typedef std::vector<Scene*>		 SceneVector;
-typedef std::vector<SceneActor*> SceneActorVector;
-typedef std::vector<Sprite*>     SpriteVector;
-typedef std::vector<POV*>		 PovVector;
+	class Camera;
+	class Named;
+	class Scene;
+	class SceneActor;
+	class SaltyEngine;
+	class Sprite;
+	class POV;
+	class Vec3;
+
+	// containeres
+	typedef std::vector<Camera*>     CameraVector;
+	typedef std::vector<Scene*>		 SceneVector;
+	typedef std::vector<SceneActor*> SceneActorVector;
+	typedef std::vector<Sprite*>     SpriteVector;
+	typedef std::vector<POV*>		 PovVector;
+}
+
 #include "Vec3.h"
+#include "Named.h"
 #include "POV.h"
 #include "Sprite.h"
 #include "SceneActor.h"
@@ -41,6 +49,7 @@ typedef std::vector<POV*>		 PovVector;
 #include "Camera.h"
 
 #include "SaltyEngine.h"
+
 
 #endif /* SALTY_ENGINE_CORE_HEADERS_H__ */
 

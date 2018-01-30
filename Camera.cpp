@@ -1,77 +1,62 @@
+#include "stdafx.h"
 #include "Camera.h"
-
+namespace salty
+{
 Camera::Camera()
-	: lookingTo(0, 0, 0),
-	position(0, 0, 0),
-	cameraID(0)
-{}
+	: position(0, 0, 0),
+	  cameraID(0)
+{
+	scene = nullptr;
+	pov = nullptr;
+}
 //--------------------------------------------------------------------------------------------------------------------
-Camera::Camera(float xLookingTo, float yLookingTo, float zLookingTo, float xPosition, float yPosition, float zPosition, unsigned int pcameraID)
-	: lookingTo(xLookingTo, yLookingTo, zLookingTo),
-	position(xPosition, yPosition, zPosition),
-	cameraID(pcameraID)
-{}
+Camera::Camera(Scene* pscene, POV* ppov, float xPosition, float yPosition, float zPosition, unsigned int pcameraID)
+	: position(xPosition, yPosition, zPosition),
+	  cameraID(pcameraID)
+{
+	scene = pscene;
+	pov = ppov;
+}
 //--------------------------------------------------------------------------------------------------------------------
 Camera::~Camera() {
 
 }
 //--------------------------------------------------------------------------------------------------------------------
 Camera::Camera(const Camera& rhs)
-	: lookingTo(rhs.lookingTo),
-	position(rhs.position),
-	cameraID(rhs.cameraID)
-{}
+	: position(rhs.position),
+	  cameraID(rhs.cameraID)
+{
+	scene = rhs.scene;
+	pov = rhs.pov;
+}
 //--------------------------------------------------------------------------------------------------------------------
 Camera& Camera::operator=(const Camera&) {
-	// TODO copiar!
 	return *this;
 }
 //--------------------------------------------------------------------------------------------------------------------
-void Camera::setLookingTo(const Vec3& v)
-{
-	lookingTo = v;
+Scene* Camera::getScene() const {
+	return scene;
 }
 //--------------------------------------------------------------------------------------------------------------------
-Vec3 Camera::getLookingTo() const {
-	return lookingTo;
+const POV* Camera::getPov() const {
+	return pov;
 }
 //--------------------------------------------------------------------------------------------------------------------
-float Camera::getLookingToX() const {
-	return lookingTo.x;
-}
-//--------------------------------------------------------------------------------------------------------------------
-float Camera::getLookingToY() const {
-	return lookingTo.y;
-}
-//--------------------------------------------------------------------------------------------------------------------
-float Camera::getLookingToZ() const {
-	return lookingTo.z;
-}
-//--------------------------------------------------------------------------------------------------------------------
-Vec3 Camera::getPosition() const {
+const Vec3& Camera::getPosition() const {
 	return position;
 }
-//--------------------------------------------------------------------------------------------------------------------
-float Camera::getPositionX() const {
-	return position.x;
-}
-//--------------------------------------------------------------------------------------------------------------------
-float Camera::getPositionY() const {
-	return position.y;
-}
-//--------------------------------------------------------------------------------------------------------------------
-float Camera::getPositionZ() const {
-	return position.z;
-}
+
 //--------------------------------------------------------------------------------------------------------------------
 unsigned int Camera::getCameraID() const {
 	return cameraID;
 }
 //--------------------------------------------------------------------------------------------------------------------
-void Camera::lookTo(float lookToX, float lookToY, float lookToZ) {
-	lookingTo.x = lookToX;
-	lookingTo.y = lookToY;
-	lookingTo.z = lookToZ;
+void Camera::setPov(POV* ppov) {
+	pov = ppov;
+}
+//--------------------------------------------------------------------------------------------------------------------
+void Camera::setScene(Scene* pscene) {
+	scene = pscene;
 }
 //--------------------------------------------------------------------------------------------------------------------
 void Camera::moveTo(float moveToX, float moveToY, float moveToZ) {
@@ -90,3 +75,4 @@ void Camera::setCameraID(unsigned pcameraID) {
 	cameraID = pcameraID;
 }
 //--------------------------------------------------------------------------------------------------------------------
+}

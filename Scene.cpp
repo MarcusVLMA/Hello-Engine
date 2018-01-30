@@ -1,9 +1,14 @@
 #include "stdafx.h"
 #include "Scene.h"
 #include "SaltyEngineIncludes.h"
+
+
+namespace salty
+{
 // ------------------------------------------------------------------------------------
-Scene::Scene()
-	: sceneActorRepository(),
+Scene::Scene(const char* name, unsigned int id )
+	: Named(name, id),
+	  sceneActorRepository(),
 	  povs()
 {
 }
@@ -31,7 +36,7 @@ void Scene::addSceneActor(SceneActor* psceneActor) {
 // ------------------------------------------------------------------------------------
 void Scene::removeSceneActor(unsigned int psceneActorID) {
 	for (SceneActor* sceneActor : sceneActorRepository) {
-		if (sceneActor->getSceneActorID == psceneActorID) {
+		if (sceneActor->getSceneActorID() == psceneActorID) {
 			SceneActorVector::iterator newEnd = std::remove(sceneActorRepository.begin(), sceneActorRepository.end(), sceneActor);
 			sceneActorRepository.erase(newEnd, sceneActorRepository.end());
 		}
@@ -42,30 +47,31 @@ void Scene::removeSceneActor(unsigned int psceneActorID) {
 
 POV* Scene::createStaticPov(float xPosition, float yPosition, unsigned int pPovID) {
 	for (POV* pov : povs) {
-		if (pov->getPovID == pPovID) {
+		if (pov->getPovID() == pPovID) {
 			std::cout << "A Pov with this ID already exists" << std::endl;
-			return nullptr;
-		}
-		else {
-			POV* pPov = new POV(xPosition, yPosition, pPovID);
-			return pPov;
+			return pov;
 		}
 	}
+
+	POV* pPov = new POV(xPosition, yPosition, pPovID);
+	povs.push_back(pPov);
+	return pPov;
 }
 
 // ------------------------------------------------------------------------------------
 
-POV* Scene::createPov(Vec3* Position, Vec3* Velocity, unsigned int pPovID) {
+POV* Scene::createPov(const Vec3& position, const Vec3& velocity, unsigned int pPovID) {
 	for (POV* pov : povs) {
-		if (pov->getPovID == pPovID) {
+		if (pov->getPovID() == pPovID) {
 			std::cout << "A Pov with this ID already exists" << std::endl;
 			return nullptr;
 		}
 		else {
-			POV* pPov = new POV(Position, Velocity, pPovID);
+			POV* pPov = new POV(position, velocity, pPovID);
 			return pPov;
 		}
 	}
+	return nullptr;
 }
 
 // ------------------------------------------------------------------------------------
@@ -106,4 +112,6 @@ void Scene::render() {
 
 		glDisable(GL_TEXTURE_2D);
 	}
+}
+
 }
